@@ -3,13 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A0E61C83FA371B01CD1CF70 /* libPods-Poster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D6E27671C8AB03B33218BA /* libPods-Poster.a */; };
+		7816D7EAEFA2B495335226B4 /* Pods_Poster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9903690F8282B670CAC0EF /* Pods_Poster.framework */; };
 		8F214F0923D661C5009728FD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F0823D661C5009728FD /* ProfileViewController.swift */; };
 		8F214F0B23D66204009728FD /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F0A23D66204009728FD /* NewPostViewController.swift */; };
+		8F214F0F23D797BA009728FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F214F0E23D797BA009728FD /* GoogleService-Info.plist */; };
+		8F214F1123D7AD18009728FD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F1023D7AD18009728FD /* Post.swift */; };
+		8F214F1523D8D149009728FD /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F1423D8D149009728FD /* ListTableViewCell.swift */; };
+		8F214F1823D8D218009728FD /* ConstraintExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F1723D8D218009728FD /* ConstraintExtensions.swift */; };
+		8F214F1A23D917CE009728FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F1923D917CE009728FD /* DetailViewController.swift */; };
 		8F8933B023D48CF8003CE5AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */; };
 		8F8933B223D48CF8003CE5AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */; };
 		8F8933B423D48CF8003CE5AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933B323D48CF8003CE5AD /* TabBarViewController.swift */; };
@@ -26,6 +31,11 @@
 		828E480421EA0544AA70C9D8 /* Pods-Poster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Poster.debug.xcconfig"; path = "Target Support Files/Pods-Poster/Pods-Poster.debug.xcconfig"; sourceTree = "<group>"; };
 		8F214F0823D661C5009728FD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8F214F0A23D66204009728FD /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		8F214F0E23D797BA009728FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8F214F1023D7AD18009728FD /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		8F214F1423D8D149009728FD /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		8F214F1723D8D218009728FD /* ConstraintExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintExtensions.swift; sourceTree = "<group>"; };
+		8F214F1923D917CE009728FD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8F8933AC23D48CF8003CE5AD /* Poster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +47,7 @@
 		8F8933C023D48CFC003CE5AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8FD3776923D6495C00A1AF23 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8FD3776B23D6499C00A1AF23 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		E1D6E27671C8AB03B33218BA /* libPods-Poster.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Poster.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC9903690F8282B670CAC0EF /* Pods_Poster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Poster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A0E61C83FA371B01CD1CF70 /* libPods-Poster.a in Frameworks */,
+				7816D7EAEFA2B495335226B4 /* Pods_Poster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +65,7 @@
 		19B56B04EA9DAB6E81AADC03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E1D6E27671C8AB03B33218BA /* libPods-Poster.a */,
+				AC9903690F8282B670CAC0EF /* Pods_Poster.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -67,6 +77,16 @@
 				5F3DFE31B212B0E9337D64E8 /* Pods-Poster.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8F214F1623D8D1F4009728FD /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */,
+				8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */,
+				8F214F1723D8D218009728FD /* ConstraintExtensions.swift */,
+			);
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 		8F8933A323D48CF8003CE5AD = {
@@ -94,8 +114,10 @@
 				8FD3776423D6449E00A1AF23 /* Model */,
 				8FD3776723D644D400A1AF23 /* Controller */,
 				8FD3776623D644BD00A1AF23 /* View */,
-				8FD3776523D644B100A1AF23 /* View Model */,
-				8FD3776823D644DD00A1AF23 /* Supporting Files */,
+				8F214F1623D8D1F4009728FD /* Supporting */,
+				8F8933C023D48CFC003CE5AD /* Info.plist */,
+				8F214F0E23D797BA009728FD /* GoogleService-Info.plist */,
+				8F8933B823D48CF8003CE5AD /* Poster.xcdatamodeld */,
 			);
 			path = Poster;
 			sourceTree = "<group>";
@@ -103,15 +125,9 @@
 		8FD3776423D6449E00A1AF23 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8F214F1023D7AD18009728FD /* Post.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		8FD3776523D644B100A1AF23 /* View Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View Model";
 			sourceTree = "<group>";
 		};
 		8FD3776623D644BD00A1AF23 /* View */ = {
@@ -119,6 +135,7 @@
 			children = (
 				8F8933B523D48CF8003CE5AD /* Main.storyboard */,
 				8F8933BD23D48CFC003CE5AD /* LaunchScreen.storyboard */,
+				8F214F1423D8D149009728FD /* ListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,19 +148,9 @@
 				8FD3776B23D6499C00A1AF23 /* ListViewController.swift */,
 				8F214F0823D661C5009728FD /* ProfileViewController.swift */,
 				8F214F0A23D66204009728FD /* NewPostViewController.swift */,
+				8F214F1923D917CE009728FD /* DetailViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		8FD3776823D644DD00A1AF23 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8F8933C023D48CFC003CE5AD /* Info.plist */,
-				8F8933B823D48CF8003CE5AD /* Poster.xcdatamodeld */,
-				8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */,
-				8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */,
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +164,7 @@
 				8F8933A823D48CF8003CE5AD /* Sources */,
 				8F8933A923D48CF8003CE5AD /* Frameworks */,
 				8F8933AA23D48CF8003CE5AD /* Resources */,
+				9CB95D81AAF3E8CD4806C29B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -206,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8933BF23D48CFC003CE5AD /* LaunchScreen.storyboard in Resources */,
+				8F214F0F23D797BA009728FD /* GoogleService-Info.plist in Resources */,
 				8F8933BC23D48CFC003CE5AD /* Assets.xcassets in Resources */,
 				8F8933B723D48CF8003CE5AD /* Main.storyboard in Resources */,
 			);
@@ -214,6 +223,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9CB95D81AAF3E8CD4806C29B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Poster/Pods-Poster-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Poster/Pods-Poster-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Poster/Pods-Poster-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E16B227F9A217CEA0FB4FF3B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,13 +269,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F214F1A23D917CE009728FD /* DetailViewController.swift in Sources */,
+				8F214F1523D8D149009728FD /* ListTableViewCell.swift in Sources */,
 				8F8933BA23D48CF8003CE5AD /* Poster.xcdatamodeld in Sources */,
 				8F8933B423D48CF8003CE5AD /* TabBarViewController.swift in Sources */,
 				8FD3776C23D6499C00A1AF23 /* ListViewController.swift in Sources */,
 				8F214F0923D661C5009728FD /* ProfileViewController.swift in Sources */,
 				8F8933B023D48CF8003CE5AD /* AppDelegate.swift in Sources */,
 				8F214F0B23D66204009728FD /* NewPostViewController.swift in Sources */,
+				8F214F1123D7AD18009728FD /* Post.swift in Sources */,
 				8FD3776A23D6495C00A1AF23 /* MapViewController.swift in Sources */,
+				8F214F1823D8D218009728FD /* ConstraintExtensions.swift in Sources */,
 				8F8933B223D48CF8003CE5AD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,7 +427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LZFDNCMC92;
-				INFOPLIST_FILE = "Poster/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Poster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -416,7 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LZFDNCMC92;
-				INFOPLIST_FILE = "Poster/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Poster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -42,7 +42,7 @@ class ListTableViewCell: UITableViewCell {
     }
     
     func configureDescriptionLabel() {
-        descriptionLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 1
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 12).isActive = true

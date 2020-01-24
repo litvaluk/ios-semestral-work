@@ -33,7 +33,15 @@ class TabBarViewController: UITabBarController {
         profileViewController.tabBarItem.image = UIImage(systemName: "person")
         profileViewController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         
-        viewControllers = [newPostViewController, listViewController, mapViewController, profileViewController]
+        let listNavigationController = UINavigationController(rootViewController: listViewController)
+        let mapNavigationController = UINavigationController(rootViewController: mapViewController)
+        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        
+        listNavigationController.navigationBar.tintColor = .black
+        mapNavigationController.navigationBar.tintColor = .black
+        profileNavigationController.navigationBar.tintColor = .black
+        
+        viewControllers = [newPostViewController, listNavigationController, mapNavigationController, profileNavigationController]
     }
 
 

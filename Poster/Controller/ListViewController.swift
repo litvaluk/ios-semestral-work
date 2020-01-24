@@ -22,6 +22,7 @@ class ListViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.view.backgroundColor = .white
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         let tableView = UITableView()
         view.addSubview(tableView)
         tableView.refreshControl = UIRefreshControl()
@@ -32,6 +33,7 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.observePosts()
+        self.navigationItem.title = "Posts"
         
         tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.cellId)
         tableView.dataSource = self
@@ -70,6 +72,25 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = self.posts[indexPath.row]
+        let ref = self.storage.reference(forURL: post.image_url)
+        
+        let detail = DetailViewController()
+        detail.imageView.sd_setImage(with: ref)
+        let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
+        detail.imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        detail.imageView.widthAnchor.constraint(equalToConstant: detail.view.frame.width).isActive = true
+        detail.descriptionLabel.text = post.description
+        detail.ratingLabel.text = String(format:"%.1f", post.rating)
+        
+        let date = Date(timeIntervalSince1970: post.timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        detail.dateLabel.text = dateFormatter.string(from: date)
+        
+        self.navigationController?.pushViewController(detail, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
         print(#function, indexPath)
     }

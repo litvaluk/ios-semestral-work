@@ -71,6 +71,7 @@ class ListViewController: UIViewController {
         detail.descriptionLabel.text = post.description
         detail.ratingLabel.text = String(format:"%.1f", post.rating)
         detail.dateLabel.text = Utils.timestampToString(timestamp: post.timestamp)
+        detail.fetchUser(userId: post.user_id)
         
         return detail
     }
@@ -112,13 +113,7 @@ extension ListViewController: UITableViewDataSource {
         cell.thumbnailImageView.sd_setImage(with: ref)
         cell.descriptionLabel.text = post.description
         cell.ratingLabel.text = String(format:"%.1f", post.rating)
-        
-        let date = Date(timeIntervalSince1970: post.timestamp)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
-        cell.dateLabel.text = dateFormatter.string(from: date)
+        cell.dateLabel.text = Utils.timestampToString(timestamp: post.timestamp)
 
         return cell
     }

@@ -92,6 +92,7 @@ class MapViewController: UIViewController {
         detail.descriptionLabel.text = post.description
         detail.ratingLabel.text = String(format:"%.1f", post.rating)
         detail.dateLabel.text = Utils.timestampToString(timestamp: post.timestamp)
+        detail.fetchUser(userId: post.user_id)
         
         return detail
     }

@@ -11,6 +11,7 @@ import Foundation
 struct Post: Codable {
     
     let id: String
+    let user_id: String
     let image_url: String
     let description: String
     let rating: Double
@@ -18,9 +19,10 @@ struct Post: Codable {
     let latitude: Double
     let longitude: Double
     
-    init(id: String, image_url: String, description: String, rating: Double, timestamp: Double, latitude: Double, longitude: Double) {
+    init(id: String, userId: String, imageUrl: String, description: String, rating: Double, timestamp: Double, latitude: Double, longitude: Double) {
         self.id = id
-        self.image_url = image_url
+        self.user_id = userId
+        self.image_url = imageUrl
         self.description = description
         self.rating = rating
         self.timestamp = timestamp

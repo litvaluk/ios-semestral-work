@@ -28,7 +28,7 @@ class TabBarViewController: UITabBarController {
         mapViewController.tabBarItem.image = UIImage(systemName: "map")
         mapViewController.tabBarItem.selectedImage = UIImage(systemName: "map.fill")
         
-        let profileViewController = ProfileViewController()
+        let profileViewController = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout(), userId: "1")
         profileViewController.tabBarItem.title = "Profile"
         profileViewController.tabBarItem.image = UIImage(systemName: "person")
         profileViewController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")

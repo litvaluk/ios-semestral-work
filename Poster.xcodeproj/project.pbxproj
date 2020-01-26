@@ -17,6 +17,9 @@
 		8F214F1A23D917CE009728FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F214F1923D917CE009728FD /* DetailViewController.swift */; };
 		8F4B000D23DB491900082392 /* PostAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B000C23DB491900082392 /* PostAnnotation.swift */; };
 		8F4B000F23DD015900082392 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B000E23DD015900082392 /* Utils.swift */; };
+		8F4B001123DD8E5C00082392 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B001023DD8E5C00082392 /* User.swift */; };
+		8F4B001323DDCBD100082392 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B001223DDCBD100082392 /* ProfileHeader.swift */; };
+		8F4B001523DDD51200082392 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4B001423DDD51200082392 /* ProfileCollectionViewCell.swift */; };
 		8F8933B023D48CF8003CE5AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */; };
 		8F8933B223D48CF8003CE5AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */; };
 		8F8933B423D48CF8003CE5AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8933B323D48CF8003CE5AD /* TabBarViewController.swift */; };
@@ -40,6 +43,9 @@
 		8F214F1923D917CE009728FD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8F4B000C23DB491900082392 /* PostAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAnnotation.swift; sourceTree = "<group>"; };
 		8F4B000E23DD015900082392 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8F4B001023DD8E5C00082392 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8F4B001223DDCBD100082392 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		8F4B001423DDD51200082392 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		8F8933AC23D48CF8003CE5AD /* Poster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8933AF23D48CF8003CE5AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F8933B123D48CF8003CE5AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				8F214F1023D7AD18009728FD /* Post.swift */,
+				8F4B001023DD8E5C00082392 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,6 +149,8 @@
 				8F8933BD23D48CFC003CE5AD /* LaunchScreen.storyboard */,
 				8F214F1423D8D149009728FD /* ListTableViewCell.swift */,
 				8F4B000C23DB491900082392 /* PostAnnotation.swift */,
+				8F4B001223DDCBD100082392 /* ProfileHeader.swift */,
+				8F4B001423DDD51200082392 /* ProfileCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -277,12 +286,15 @@
 			files = (
 				8F214F1A23D917CE009728FD /* DetailViewController.swift in Sources */,
 				8F214F1523D8D149009728FD /* ListTableViewCell.swift in Sources */,
+				8F4B001523DDD51200082392 /* ProfileCollectionViewCell.swift in Sources */,
 				8F8933BA23D48CF8003CE5AD /* Poster.xcdatamodeld in Sources */,
 				8F4B000F23DD015900082392 /* Utils.swift in Sources */,
 				8F8933B423D48CF8003CE5AD /* TabBarViewController.swift in Sources */,
 				8FD3776C23D6499C00A1AF23 /* ListViewController.swift in Sources */,
 				8F214F0923D661C5009728FD /* ProfileViewController.swift in Sources */,
 				8F4B000D23DB491900082392 /* PostAnnotation.swift in Sources */,
+				8F4B001323DDCBD100082392 /* ProfileHeader.swift in Sources */,
+				8F4B001123DD8E5C00082392 /* User.swift in Sources */,
 				8F8933B023D48CF8003CE5AD /* AppDelegate.swift in Sources */,
 				8F214F0B23D66204009728FD /* NewPostViewController.swift in Sources */,
 				8F214F1123D7AD18009728FD /* Post.swift in Sources */,

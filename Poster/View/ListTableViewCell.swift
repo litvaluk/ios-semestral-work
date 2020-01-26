@@ -32,7 +32,6 @@ class ListTableViewCell: UITableViewCell {
     
     func configureThumbnailImageView() {
         thumbnailImageView.contentMode = .scaleAspectFill
-        thumbnailImageView.layer.cornerRadius = 10
         thumbnailImageView.clipsToBounds = true
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

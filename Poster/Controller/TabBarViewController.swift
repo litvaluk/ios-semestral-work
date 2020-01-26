@@ -42,6 +42,7 @@ class TabBarViewController: UITabBarController {
         profileNavigationController.navigationBar.tintColor = .black
         
         viewControllers = [newPostViewController, listNavigationController, mapNavigationController, profileNavigationController]
+        selectedIndex = 1
     }
 
 

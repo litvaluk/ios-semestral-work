@@ -60,6 +60,21 @@ class ListViewController: UIViewController {
         }
     }
     
+    func getDetailViewController(post: Post) -> DetailViewController {
+        let detail = DetailViewController()
+        let ref = self.storage.reference(forURL: post.image_url)
+        
+        detail.imageView.sd_setImage(with: ref)
+        let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
+        detail.imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        detail.imageView.widthAnchor.constraint(equalToConstant: detail.view.frame.width).isActive = true
+        detail.descriptionLabel.text = post.description
+        detail.ratingLabel.text = String(format:"%.1f", post.rating)
+        detail.dateLabel.text = Utils.timestampToString(timestamp: post.timestamp)
+        
+        return detail
+    }
+    
     @objc
     private func refreshTriggered(_ sender: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -73,24 +88,7 @@ class ListViewController: UIViewController {
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = self.posts[indexPath.row]
-        let ref = self.storage.reference(forURL: post.image_url)
-        
-        let detail = DetailViewController()
-        detail.imageView.sd_setImage(with: ref)
-        let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
-        detail.imageView.heightAnchor.constraint(equalToConstant: height).isActive = true
-        detail.imageView.widthAnchor.constraint(equalToConstant: detail.view.frame.width).isActive = true
-        detail.descriptionLabel.text = post.description
-        detail.ratingLabel.text = String(format:"%.1f", post.rating)
-        
-        let date = Date(timeIntervalSince1970: post.timestamp)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
-        detail.dateLabel.text = dateFormatter.string(from: date)
-        
-        self.navigationController?.pushViewController(detail, animated: true)
+        self.navigationController?.pushViewController(getDetailViewController(post: post), animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
         print(#function, indexPath)
     }

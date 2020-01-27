@@ -120,6 +120,7 @@ class DetailViewController: UIViewController {
     
     @objc func showProfile() {
         let profile = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout(), userId: user!.id)
+        profile.navigationItem.title = user?.name
         self.navigationController?.pushViewController(profile, animated: true)
     }
     

@@ -53,6 +53,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used for displaying location on the map in the map view.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used for picking an image from photo library when creating a new post.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Used for shooting an image with camera when creating a new post.</string>
 	<key>LSApplicationCategoryType</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -14,12 +14,7 @@ import FirebaseUI
 
 class ProfileViewController: UICollectionViewController {
 
-    var user: User? {
-        didSet {
-            guard let user = user else { return }
-            self.navigationItem.title = user.name
-        }
-    }
+    var user: User?
     
     var userId: String?
     var storage = Storage.storage()

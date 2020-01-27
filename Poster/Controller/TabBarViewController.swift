@@ -12,6 +12,7 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self
         
         let newPostViewController = NewPostViewController()
         newPostViewController.tabBarItem.title = "New Post"
@@ -29,6 +30,7 @@ class TabBarViewController: UITabBarController {
         mapViewController.tabBarItem.selectedImage = UIImage(systemName: "map.fill")
         
         let profileViewController = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout(), userId: "1")
+        profileViewController.navigationItem.title = "litvanius"
         profileViewController.tabBarItem.title = "Profile"
         profileViewController.tabBarItem.image = UIImage(systemName: "person")
         profileViewController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
@@ -45,6 +47,16 @@ class TabBarViewController: UITabBarController {
         selectedIndex = 1
     }
 
-
 }
 
+extension TabBarViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController is NewPostViewController {
+            print("new post clicked")
+            let newPostViewController = NewPostViewController()
+            present(newPostViewController, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+}

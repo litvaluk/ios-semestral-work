@@ -52,7 +52,7 @@ class ListTableViewCell: UITableViewCell {
     func configureDateLabel() {
         dateLabel.numberOfLines = 0
         dateLabel.font = UIFont.systemFont(ofSize: 12)
-        dateLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1)
+        dateLabel.textColor = Colors.gray
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.leadingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: 12).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: ratingLabel.leadingAnchor, constant: -12).isActive = true

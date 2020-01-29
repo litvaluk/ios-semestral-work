@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,7 +19,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: scene)
-        window?.rootViewController = TabBarViewController()
+//        Auth.auth().signIn(withEmail: "litvaluk@gmail.com", password: "heslo123") { (res, err) in
+//            if let err = err {
+//                print(err)
+//                return
+//            }
+//            self.window?.rootViewController = TabBarController()
+//            self.window?.makeKeyAndVisible()
+//        }
+        
+        let initialViewController = InitialViewController()
+        initialViewController.view.backgroundColor = Colors.white
+        initialViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        window?.rootViewController = UINavigationController(rootViewController: initialViewController)
         window?.makeKeyAndVisible()
     }
 

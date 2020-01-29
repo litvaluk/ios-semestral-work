@@ -16,30 +16,27 @@ class ListViewController: UIViewController {
     
     var posts: [Post] = []
     var isInitiallyLoaded = false
-    let storage = Storage.storage()
-    private weak var tableView: UITableView!
+    let tableView = UITableView()
     
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = .white
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        let tableView = UITableView()
         view.addSubview(tableView)
-        tableView.refreshControl = UIRefreshControl()
-        tableView.pin(superView: view)
-        self.tableView = tableView
+        configureTableView()
+        observePosts()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.observePosts()
-        self.navigationItem.title = "Posts"
-        
-        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.cellId)
+    func configureTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.rowHeight = 100
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshTriggered(_:)), for: .valueChanged)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 100
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshTriggered(_:)), for: .valueChanged)
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.cellId)
     }
     
     public func observePosts() {
@@ -60,9 +57,14 @@ class ListViewController: UIViewController {
         }
     }
     
+    // TODO
     func getDetailViewController(post: Post) -> DetailViewController {
         let detail = DetailViewController()
-        let ref = self.storage.reference(forURL: post.image_url)
+        let ref = Storage.storage().reference(forURL: post.image_url)
+        
+        detail.view.backgroundColor = Colors.white
+        detail.navigationItem.title = "Post"
+        detail.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         detail.imageView.sd_setImage(with: ref)
         let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
@@ -87,16 +89,13 @@ class ListViewController: UIViewController {
 }
 
 extension ListViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let post = self.posts[indexPath.row]
         self.navigationController?.pushViewController(getDetailViewController(post: post), animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
-        print(#function, indexPath)
     }
     
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .delete
-    }
 }
 
 extension ListViewController: UITableViewDataSource {
@@ -108,7 +107,7 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.cellId, for: indexPath) as! ListTableViewCell
         let post = self.posts[indexPath.row]
-        let ref = self.storage.reference(forURL: post.image_url)
+        let ref = Storage.storage().reference(forURL: post.image_url)
         
         cell.thumbnailImageView.sd_setImage(with: ref)
         cell.descriptionLabel.text = post.description

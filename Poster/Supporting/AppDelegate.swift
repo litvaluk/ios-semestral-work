@@ -15,11 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UITabBar.appearance().tintColor = .black
         FirebaseApp.configure()
+        setGlobalAppearance()
         return true
+    }
+    
+    func setGlobalAppearance() {
+        UIButton.appearance().tintColor = Colors.black
+        UINavigationBar.appearance().tintColor = Colors.black
+        UITabBar.appearance().tintColor = Colors.black
+        UITextField.appearance().tintColor = Colors.black
+        UITextView.appearance().tintColor = Colors.black
     }
 
     // MARK: UISceneSession Lifecycle

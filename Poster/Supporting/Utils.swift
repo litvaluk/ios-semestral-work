@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Utils {
     
     static func timestampToString(timestamp: Double, dateFormat: String = "d. M. yyyy H:mm") -> String {

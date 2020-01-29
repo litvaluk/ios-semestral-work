@@ -11,39 +11,43 @@ import FirebaseDatabase
 import CodableFirebase
 import FirebaseStorage
 import FirebaseUI
+import FirebaseAuth
 
 class ProfileViewController: UICollectionViewController {
 
-    var user: User?
-    
     var userId: String?
-    var storage = Storage.storage()
+    var username: String?
+    var userDescription: String?
+    
     var posts: [Post] = []
     var isInitiallyLoaded = false
     
-    init(collectionViewLayout layout: UICollectionViewLayout, userId: String) {
-        super.init(collectionViewLayout: layout)
-        self.userId = userId
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+    override func loadView() {
+        super.loadView()
         observePosts()
-        fetchUser(userId: userId!)
-        
         configureCollectionView()
+        
+        if userId == Auth.auth().currentUser?.uid {
+            addLogoutButton()
+        }
     }
     
-    func fetchUser(userId: String) {
-        Database.database().reference(withPath: "users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
-            do {
-                self.user = try FirebaseDecoder().decode(User.self, from: snapshot.value!)
-            } catch let error {
-                print(error)
-            }
-        })
+    func addLogoutButton() {
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(self.logout))
+        self.navigationItem.rightBarButtonItem = logoutButton
+    }
+    
+    @objc func logout() {
+        do {
+            try Auth.auth().signOut()
+            let initialViewController = InitialViewController()
+            initialViewController.view.backgroundColor = Colors.white
+            initialViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            self.view.window?.rootViewController = UINavigationController(rootViewController: initialViewController)
+            self.view.window?.makeKeyAndVisible()
+        } catch let error {
+            print(error)
+        }
     }
     
     public func observePosts() {
@@ -67,7 +71,7 @@ class ProfileViewController: UICollectionViewController {
     }
     
     func configureCollectionView() {
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Colors.white
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileHeader.profileHeaderId)
         collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: ProfileCollectionViewCell.cellId)
         collectionView.refreshControl = UIRefreshControl()
@@ -77,7 +81,11 @@ class ProfileViewController: UICollectionViewController {
     
     func getDetailViewController(post: Post) -> DetailViewController {
         let detail = DetailViewController()
-        let ref = self.storage.reference(forURL: post.image_url)
+        let ref = Storage.storage().reference(forURL: post.image_url)
+        
+        detail.view.backgroundColor = Colors.white
+        detail.navigationItem.title = "Post"
+        detail.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         detail.imageView.sd_setImage(with: ref)
         let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
@@ -98,18 +106,13 @@ class ProfileViewController: UICollectionViewController {
             sender.endRefreshing()
         }
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
 extension ProfileViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.profileHeaderId, for: indexPath) as! ProfileHeader
-        header.fetchUser(userId: self.userId!)
+        header.descriptionLabel.text = userDescription
         return header
     }
     
@@ -120,7 +123,7 @@ extension ProfileViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCollectionViewCell.cellId, for: indexPath) as! ProfileCollectionViewCell
         let post = self.posts[indexPath.row]
-        let ref = self.storage.reference(forURL: post.image_url)
+        let ref = Storage.storage().reference(forURL: post.image_url)
         cell.imageView.sd_setImage(with: ref)
         return cell
     }

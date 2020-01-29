@@ -27,25 +27,11 @@ class ProfileHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = Colors.white
         addSubview(descriptionTitleLabel)
         addSubview(descriptionLabel)
         configureDescriptionTitleLabel()
         configureDescriptionLabel()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func fetchUser(userId: String) {
-        Database.database().reference(withPath: "users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
-            do {
-                self.user = try FirebaseDecoder().decode(User.self, from: snapshot.value!)
-            } catch let error {
-                print(error)
-            }
-        })
     }
     
     func configureDescriptionTitleLabel() {
@@ -66,6 +52,10 @@ class ProfileHeader: UICollectionReusableView {
         descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
         descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: descriptionTitleLabel.bottomAnchor, constant: 12).isActive = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

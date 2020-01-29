@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 import CodableFirebase
 import FirebaseStorage
 import MapKit
@@ -18,6 +19,7 @@ class NewPostViewController: UIViewController {
     let imageView = UIImageView()
     let descriptionLabel = UILabel()
     let descriptionTextView = UITextView()
+    let loading = UIActivityIndicatorView()
     let postButton = UIButton()
     
     let locationManager = CLLocationManager()
@@ -27,18 +29,22 @@ class NewPostViewController: UIViewController {
     var trailingAnchorImageViewConstraint: NSLayoutConstraint!
     var heightAnchorImageViewConstraint: NSLayoutConstraint!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
+    override func loadView() {
+        super.loadView()
         view.addSubview(imageView)
         view.addSubview(descriptionLabel)
         view.addSubview(descriptionTextView)
+        view.addSubview(loading)
         view.addSubview(postButton)
         configureImageView()
         configureDescriptionLabel()
         configureDescriptionTextView()
+        configureLoading()
         configurePostButton()
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestLocation()
     }
@@ -65,7 +71,7 @@ class NewPostViewController: UIViewController {
     
     func configureDescriptionLabel() {
         descriptionLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        descriptionLabel.textColor = .black
+        descriptionLabel.textColor = Colors.black
         descriptionLabel.text = "Description"
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20).isActive = true
@@ -76,12 +82,12 @@ class NewPostViewController: UIViewController {
     
     func configureDescriptionTextView() {
         descriptionTextView.delegate = self
-        descriptionTextView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+        descriptionTextView.backgroundColor = Colors.lightGray
         descriptionTextView.clipsToBounds = true
         descriptionTextView.layer.cornerRadius = 20
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         descriptionTextView.text = "Your description"
-        descriptionTextView.textColor = .gray
+        descriptionTextView.textColor = Colors.lightGray
         descriptionTextView.font = UIFont.systemFont(ofSize: 16)
         descriptionTextView.returnKeyType = .done
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,13 +97,22 @@ class NewPostViewController: UIViewController {
         descriptionTextView.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
     
+    func configureLoading() {
+        loading.isHidden = true
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        loading.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        loading.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        loading.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        loading.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
     func configurePostButton() {
         postButton.setTitle("Post", for: .normal)
-        postButton.setTitleColor(.white, for: .normal)
-        postButton.backgroundColor = .black
+        postButton.setTitleColor(Colors.white, for: .normal)
+        postButton.backgroundColor = Colors.black
         postButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         postButton.translatesAutoresizingMaskIntoConstraints = false
-        postButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        postButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         postButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         postButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         postButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -125,8 +140,6 @@ class NewPostViewController: UIViewController {
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        print("image tapped")
-        
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         
@@ -175,24 +188,15 @@ class NewPostViewController: UIViewController {
     }
     
     func addPostFirebase(imageUrl: String, description: String, rating: Double, timestamp: Double, latitude: Double, longitude: Double) {
-        var post = Post(userId: "1", imageUrl: imageUrl, description: description, rating: rating, timestamp: timestamp, latitude: latitude, longitude: longitude)
         let newPostReference = Database.database().reference(withPath: "posts").childByAutoId()
-        let newPostId = newPostReference.key
-        post.id = newPostId!
+        let post = Post(id: newPostReference.key!, userId: Auth.auth().currentUser!.uid, imageUrl: imageUrl, description: description, rating: rating, timestamp: timestamp, latitude: latitude, longitude: longitude)
         let data = try! FirebaseEncoder().encode(post)
         newPostReference.setValue(data)
-        print("New child was added successfully")
     }
     
     func showRefreshInsteadOfButton() {
-        postButton.removeFromSuperview()
-        let loading = UIActivityIndicatorView()
-        view.addSubview(loading)
-        loading.translatesAutoresizingMaskIntoConstraints = false
-        loading.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        loading.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        loading.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        loading.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        postButton.isHidden = true
+        loading.isHidden = false
         loading.startAnimating()
     }
     
@@ -201,20 +205,18 @@ class NewPostViewController: UIViewController {
 extension NewPostViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("did begin editing")
         if textView.text == "Your description" {
             self.descriptionTextView.text = ""
-            self.descriptionTextView.textColor = .black
+            self.descriptionTextView.textColor = Colors.black
             self.descriptionTextView.font = UIFont.systemFont(ofSize: 16)
         }
         shrinkImageView()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("did end editing")
         if textView.text == "" {
             self.descriptionTextView.text = "Your description"
-            self.descriptionTextView.textColor = .gray
+            self.descriptionTextView.textColor = Colors.lightGray
             self.descriptionTextView.font = UIFont.systemFont(ofSize: 16)
         }
         restoreImageView()

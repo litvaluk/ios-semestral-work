@@ -18,20 +18,15 @@ class MapViewController: UIViewController {
     var locationManager = CLLocationManager()
     var currentLocation = CLLocation()
     var mapView = MKMapView()
-    var storage = Storage.storage()
     var posts: [Post] = []
     var selectedAnnotation: PostAnnotation?
     
     
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = .white
-        self.navigationItem.title = "Map"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
         view.addSubview(mapView)
         configureMapView()
-        self.observePosts()
+        observePosts()
     }
     
     override func viewDidLoad() {
@@ -81,9 +76,14 @@ class MapViewController: UIViewController {
         }
     }
     
+    // TODO
     func getDetailViewController(post: Post) -> DetailViewController {
         let detail = DetailViewController()
-        let ref = self.storage.reference(forURL: post.image_url)
+        let ref = Storage.storage().reference(forURL: post.image_url)
+        
+        detail.view.backgroundColor = Colors.white
+        detail.navigationItem.title = "Post"
+        detail.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         detail.imageView.sd_setImage(with: ref)
         let height = ((detail.imageView.image?.size.height)! * detail.view.frame.width) / (detail.imageView.image?.size.width)!
@@ -109,6 +109,10 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.selectedAnnotation = view.annotation as? PostAnnotation
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -118,31 +122,17 @@ extension MapViewController: MKMapViewDelegate {
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: "MKAnnotationView")!
             view.annotation = postAnnotation
             
-            let imageView = UIImageView()
+            view.canShowCallout = true
+            view.rightCalloutAccessoryView = getShowDetailButton()
+            view.calloutOffset = CGPoint(x: 0, y: -25)
+            
+            let imageView = getAnnotationImageView(imageUrl: postAnnotation.post.image_url)
             view.addSubview(imageView)
-            
-            imageView.contentMode = .scaleAspectFill
-            imageView.layer.cornerRadius = 6
-            imageView.layer.borderWidth = 3
-            imageView.layer.borderColor = UIColor.white.cgColor
-            imageView.clipsToBounds = true
-            imageView.sd_setImage(with: storage.reference(forURL: postAnnotation.post.image_url))
-            
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: 0, y: -25)
-            
-            let showDetailButton = UIButton(type: .custom)
-            showDetailButton.setImage(UIImage(systemName: "chevron.right"), for: [])
-            showDetailButton.tintColor = .black
-            showDetailButton.sizeToFit()
-            showDetailButton.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
-            view.rightCalloutAccessoryView = showDetailButton
             
             return view
         }
@@ -150,8 +140,24 @@ extension MapViewController: MKMapViewDelegate {
         return nil
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        self.selectedAnnotation = view.annotation as? PostAnnotation
+    func getAnnotationImageView(imageUrl: String) -> UIImageView {
+        let imageView = UIImageView()        
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 6
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = Colors.white.cgColor
+        imageView.clipsToBounds = true
+        imageView.sd_setImage(with: Storage.storage().reference(forURL: imageUrl))
+        return imageView
+    }
+    
+    func getShowDetailButton() -> UIButton {
+        let showDetailButton = UIButton(type: .custom)
+        showDetailButton.setImage(UIImage(systemName: "chevron.right"), for: [])
+        showDetailButton.tintColor = Colors.black
+        showDetailButton.sizeToFit()
+        showDetailButton.addTarget(self, action: #selector(showDetail), for: .touchUpInside)
+        return showDetailButton
     }
     
     @objc func showDetail() {

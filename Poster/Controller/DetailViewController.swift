@@ -29,19 +29,14 @@ class DetailViewController: UIViewController {
     var ratingLabel = UILabel()
     var scrollView = UIScrollView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.navigationItem.title = "Post"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
+    override func loadView() {
+        super.loadView()
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(descriptionLabel)
         scrollView.addSubview(ratingLabel)
         scrollView.addSubview(dateLabel)
         scrollView.addSubview(userButton)
-        
         configureScrollView()
         configureImageView()
         configureRatingLabel()
@@ -71,7 +66,7 @@ class DetailViewController: UIViewController {
     }
     
     func configureUserButton() {
-        userButton.setTitleColor(.black, for: .normal)
+        userButton.setTitleColor(Colors.black, for: .normal)
         userButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         userButton.addTarget(self, action: #selector(showProfile), for: .touchUpInside)
         userButton.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +77,7 @@ class DetailViewController: UIViewController {
     
     func configureDateLabel() {
         dateLabel.font = UIFont.systemFont(ofSize: 10)
-        dateLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1)
+        dateLabel.textColor = Colors.gray
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.topAnchor.constraint(equalTo: userButton.bottomAnchor, constant: 6).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 8).isActive = true
@@ -119,8 +114,12 @@ class DetailViewController: UIViewController {
     }
     
     @objc func showProfile() {
-        let profile = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout(), userId: user!.id)
+        let profile = ProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
         profile.navigationItem.title = user?.name
+        profile.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        profile.userId = user?.id
+        profile.username = user?.name
+        profile.userDescription = user?.description
         self.navigationController?.pushViewController(profile, animated: true)
     }
     

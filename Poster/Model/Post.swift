@@ -19,8 +19,8 @@ struct Post: Codable {
     let latitude: Double
     let longitude: Double
     
-    init(userId: String, imageUrl: String, description: String, rating: Double, timestamp: Double, latitude: Double, longitude: Double) {
-        self.id = ""
+    init(id: String, userId: String, imageUrl: String, description: String, rating: Double, timestamp: Double, latitude: Double, longitude: Double) {
+        self.id = id
         self.user_id = userId
         self.image_url = imageUrl
         self.description = description

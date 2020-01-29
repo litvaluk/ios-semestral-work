@@ -50,6 +50,9 @@ class ListViewController: UIViewController {
                     print(error)
                 }
             }
+            self.posts.sort { (a, b) -> Bool in
+                return a.timestamp > b.timestamp
+            }
             if self.isInitiallyLoaded == false {
                 self.tableView.reloadData()
                 self.isInitiallyLoaded = true
